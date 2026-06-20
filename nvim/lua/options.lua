@@ -8,7 +8,9 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true          -- 긴 줄을 다음 줄로 넘겨서 표시
+vim.opt.linebreak = true     -- 단어 중간이 아니라 단어 경계에서 줄바꿈
+vim.opt.breakindent = true   -- 줄바꿈된 줄도 들여쓰기 유지
 vim.opt.smartindent = true
 vim.opt.inccommand = 'split'
 

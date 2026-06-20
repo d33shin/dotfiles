@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# cheat - 치트시트 뷰어 (fzf + bat)
+# 사용법:  cheat            -> fzf 메뉴에서 고르기
+#          cheat tmux       -> tmux 치트시트 바로 보기
+set -euo pipefail
+
+DIR="${CHEAT_DIR:-$HOME/.config/cheatsheets}"
+
+view() { bat --style=plain --language=markdown "$1"; }
+
+if [ ! -d "$DIR" ]; then
+  echo "치트시트 폴더 없음: $DIR" >&2
+  exit 1
+fi
+
+if [ "${1:-}" != "" ]; then
+  f="$DIR/$1.md"
+  if [ -f "$f" ]; then
+    view "$f"
+  else
+    echo "그런 치트시트 없음: $1" >&2
+    echo "사용 가능:" >&2
+    find "$DIR" -name '*.md' -printf '  %f\n' | sed 's/\.md//'
+    exit 1
+  fi
+else
+  sel=$(find "$DIR" -name '*.md' -printf '%f\n' | sed 's/\.md//' | sort \
+    | fzf --prompt='cheat> ' --height=60% --reverse \
+          --preview "bat --color=always --style=plain $DIR/{}.md" \
+          --preview-window=right:70%)
+  [ -n "$sel" ] && view "$DIR/$sel.md"
+fi

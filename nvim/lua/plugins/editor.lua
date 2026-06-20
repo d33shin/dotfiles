@@ -14,6 +14,9 @@ return {
     },
     opts = {
       close_if_last_window = true,
+      window = {
+        width = 25,
+      },
       filesystem = {
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,

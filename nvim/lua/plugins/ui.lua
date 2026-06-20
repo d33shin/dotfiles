@@ -1,12 +1,12 @@
 return {
-  -- 컬러스킴
+  -- 컬러스킴 (VSCode Dark+ 재현)
   {
-    'folke/tokyonight.nvim',
+    'Mofiqul/vscode.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      require('tokyonight').setup({ style = 'night' })
-      vim.cmd.colorscheme('tokyonight')
+      require('vscode').setup({ style = 'dark' })
+      vim.cmd.colorscheme('vscode')
     end,
   },
 
@@ -17,7 +17,7 @@ return {
     event = 'VeryLazy',
     opts = {
       options = {
-        theme = 'tokyonight',
+        theme = 'auto',
         globalstatus = true,
         section_separators = '',
         component_separators = '|',

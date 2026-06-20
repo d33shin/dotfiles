@@ -33,6 +33,6 @@
 | `Ctrl+Shift+,` | 설정 리로드 (config 수정 후) |
 
 ## 현재 설정 (config)
-- 테마: TokyoNight Night
+- 테마: Kanagawa Wave
 - 폰트: JetBrainsMono Nerd Font 13
 - 드래그 선택 시 자동 복사

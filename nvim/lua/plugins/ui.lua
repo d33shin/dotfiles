@@ -1,12 +1,12 @@
 return {
   -- 컬러스킴
   {
-    'folke/tokyonight.nvim',
+    'rebelot/kanagawa.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      require('tokyonight').setup({ style = 'night' })
-      vim.cmd.colorscheme('tokyonight')
+      require('kanagawa').setup({ theme = 'wave' })
+      vim.cmd.colorscheme('kanagawa')
     end,
   },
 
@@ -17,7 +17,7 @@ return {
     event = 'VeryLazy',
     opts = {
       options = {
-        theme = 'tokyonight',
+        theme = 'kanagawa',
         globalstatus = true,
         section_separators = '',
         component_separators = '|',

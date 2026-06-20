@@ -49,7 +49,7 @@ getbin bat     sharkdp/bat           'x86_64-unknown-linux-gnu\.tar\.gz$'  bat
 getbin eza     eza-community/eza     'x86_64-unknown-linux-gnu\.tar\.gz$'  eza
 getbin lazygit jesseduffield/lazygit 'Linux_x86_64\.tar\.gz$'              lazygit
 getbin delta   dandavison/delta      'x86_64-unknown-linux-gnu\.tar\.gz$'  delta
-getbin btop    aristocratos/btop     'x86_64-linux-musl\.tar\.gz$'         btop
+getbin btop    aristocratos/btop     'x86_64-unknown-linux-musl\.tar\.gz$' btop
 getbin rg      BurntSushi/ripgrep    'x86_64-unknown-linux-musl\.tar\.gz$' rg
 getbin jq      jqlang/jq             'linux-amd64$'                        jq
 

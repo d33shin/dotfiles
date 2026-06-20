@@ -33,6 +33,19 @@ getbin() {
   ); rm -rf "$tmp"
 }
 
+echo "[0/3] Neovim 본체"
+if have nvim; then skip neovim; else
+  tmp="$(mktemp -d)"; ( cd "$tmp"
+    url=$(asset neovim/neovim 'nvim-linux-x86_64\.tar\.gz$')
+    [ -z "$url" ] && url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+    curl -sSL -o nvim.tar.gz "$url" && tar -xzf nvim.tar.gz
+    dir=$(find . -maxdepth 1 -type d -name 'nvim-linux*' | head -1)
+    rm -rf "$HOME/.local/nvim-dist"; mv "$dir" "$HOME/.local/nvim-dist"
+    ln -sf "$HOME/.local/nvim-dist/bin/nvim" "$BIN/nvim"
+  ); rm -rf "$tmp"
+  have nvim && ok neovim || echo "  ✗ neovim 설치 실패"
+fi
+
 echo "[1/3] 스크립트 기반 도구"
 if have starship; then skip starship; else
   curl -sS https://starship.rs/install.sh | sh -s -- -b "$BIN" -y >/dev/null && ok starship; fi

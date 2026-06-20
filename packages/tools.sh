@@ -34,7 +34,7 @@ getbin() {
 }
 
 echo "[0/3] Neovim 본체"
-if have nvim; then skip neovim; else
+if [ -x "$BIN/nvim" ] || have nvim; then skip neovim; else
   tmp="$(mktemp -d)"; ( cd "$tmp"
     url=$(asset neovim/neovim 'nvim-linux-x86_64\.tar\.gz$')
     [ -z "$url" ] && url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
@@ -43,7 +43,7 @@ if have nvim; then skip neovim; else
     rm -rf "$HOME/.local/nvim-dist"; mv "$dir" "$HOME/.local/nvim-dist"
     ln -sf "$HOME/.local/nvim-dist/bin/nvim" "$BIN/nvim"
   ); rm -rf "$tmp"
-  have nvim && ok neovim || echo "  ✗ neovim 설치 실패"
+  [ -x "$BIN/nvim" ] && ok neovim || echo "  ✗ neovim 설치 실패"
 fi
 
 echo "[1/3] 스크립트 기반 도구"

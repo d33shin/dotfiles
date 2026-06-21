@@ -29,6 +29,12 @@ return {
         local alias = vim.treesitter.get_node_text(node, bufnr):lower()
         metadata['injection.language'] = vim.filetype.match({ filename = 'a.' .. alias }) or alias
       end, { force = true })
+
+      -- nvim-treesitter master(EOL)의 bash injection 쿼리가 Neovim 0.12 코어와 비호환.
+      -- heredoc(<<EOF) 안 언어 주입 처리 중 nil 노드에서 'attempt to call method range'로
+      -- 크래시 → 하이라이터(decoration provider) 죽어 전체 흰색. heredoc 내부 임베드
+      -- 언어 색칠은 안 쓰므로 bash injection 쿼리를 비워 비활성화.
+      vim.treesitter.query.set('bash', 'injections', '')
     end,
   },
 }

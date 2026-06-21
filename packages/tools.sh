@@ -70,6 +70,15 @@ getbin delta   dandavison/delta      'x86_64-unknown-linux-gnu\.tar\.gz$'  delta
 getbin btop    aristocratos/btop     'x86_64-unknown-linux-musl\.tar\.gz$' btop
 getbin rg      BurntSushi/ripgrep    'x86_64-unknown-linux-musl\.tar\.gz$' rg
 getbin jq      jqlang/jq             'linux-amd64$'                        jq
+# tree-sitter CLI — nvim-treesitter main 브랜치가 파서를 소스 컴파일하는 데 필요.
+# .gz 단일 바이너리라 getbin(tar/zip 전용)으로 안 되므로 직접 설치.
+if [ -x "$BIN/tree-sitter" ] || have tree-sitter; then skip tree-sitter; else
+  url=$(asset tree-sitter/tree-sitter 'tree-sitter-linux-x64\.gz$')
+  if [ -n "$url" ]; then
+    tmp="$(mktemp -d)"; ( cd "$tmp" && curl -sSL -o ts.gz "$url" && gunzip ts.gz && install -m755 ts "$BIN/tree-sitter" ); rm -rf "$tmp"
+    [ -x "$BIN/tree-sitter" ] && ok tree-sitter || echo "  ✗ tree-sitter 설치 실패"
+  else echo "  ✗ tree-sitter: URL 못찾음"; fi
+fi
 
 echo "[3/5] tmux (시스템 패키지 — sudo 필요할 수 있음)"
 if have tmux; then skip tmux; else

@@ -14,8 +14,10 @@ if ! tmux has-session -t "$session" 2>/dev/null; then
   tmux split-window -h -t "$session:claude" -c "$root"
   tmux split-window -h -t "$session:claude" -c "$root"
 
-  # 가로 3분할 균등 배치
+  # 가로 3분할 후 비율 조정: 왼쪽(bash) 24%, 오른쪽(claude) 27%, 가운데(nvim) 나머지 ~48%
   tmux select-layout -t "$session:claude" even-horizontal
+  tmux resize-pane -t "$session:claude.0" -x 24%
+  tmux resize-pane -t "$session:claude.2" -x 27%
 
   # 오른쪽 패널에서 claude 실행
   tmux send-keys -t "$session:claude.2" 'claude' C-m

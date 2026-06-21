@@ -19,6 +19,10 @@ return {
       require('luasnip.loaders.from_vscode').lazy_load()
 
       cmp.setup({
+        -- treat `$` as an identifier char so $-named exports (Bun's `$`, etc.) complete
+        completion = {
+          keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|[$[:alpha:]_][$[:alnum:]_]*\%(-\w*\)*\)]],
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)

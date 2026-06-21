@@ -8,5 +8,11 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', [['_d]], { desc = 'Delete without yank
 
 vim.keymap.set('i', 'jk', '<Esc>')
 
+-- move cursor in insert mode with ctrl+hjkl
+vim.keymap.set('i', '<C-h>', '<Left>')
+vim.keymap.set('i', '<C-j>', '<Down>')
+vim.keymap.set('i', '<C-k>', '<Up>')
+vim.keymap.set('i', '<C-l>', '<Right>')
+
 -- save file
 vim.keymap.set('n', '<leader>s', '<cmd>w<cr>', { desc = 'Save file' })

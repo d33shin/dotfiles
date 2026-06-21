@@ -25,4 +25,7 @@ command -v eza >/dev/null && {
 command -v bat >/dev/null && alias cat='bat --paging=never'
 command -v nvim >/dev/null && { alias vim='nvim'; alias vi='nvim'; }
 command -v lazygit >/dev/null && alias lg='lazygit'
+
+# tmux 기본 레이아웃 실행 (t [프로젝트경로], 기본=~/projects/nullkinetic)
+alias t='~/dotfiles/tmux/start.sh'
 # ===== end dotfiles dev env =====

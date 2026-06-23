@@ -43,6 +43,22 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('user_lsp_attach', { clear = true }),
         callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+          -- bun.lock 은 JSONC lockfile(주석·trailing comma 허용)이라
+          -- 표준 JSON 으로 검사하는 jsonls 를 떼어내 오탐 경고를 막는다
+          if client and client.name == 'jsonls'
+            and vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ':t') == 'bun.lock' then
+            vim.schedule(function()
+              pcall(vim.lsp.buf_detach_client, ev.buf, client.id)
+              -- LspAttach 는 진단이 도착하기 전에 fire 되고 jsonls 는 pull diagnostics 라
+              -- 뒤늦게 도착한다. reset 로 지워도 그 뒤에 다시 채워지므로(경쟁),
+              -- lockfile 버퍼는 진단 표시 자체를 꺼 타이밍과 무관하게 막는다.
+              vim.diagnostic.enable(false, { bufnr = ev.buf })
+            end)
+            return
+          end
+
           local map = function(keys, fn, desc)
             vim.keymap.set('n', keys, fn, { buffer = ev.buf, desc = 'LSP: ' .. desc })
           end

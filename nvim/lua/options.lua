@@ -56,3 +56,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+-- bun.lock 은 JSONC(주석·trailing comma 허용)라 jsonc 로 인식 (jsonls 오탐 방지)
+vim.filetype.add({
+  filename = { ['bun.lock'] = 'jsonc' },
+})
